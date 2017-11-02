@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 14.00
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4AA1DAB6-AA94-4582-9BFF-991F51758E14}"
+	ProjectSection(SolutionItems) = preProject
+		0_Solver.sql = 0_Solver.sql
+		1_LookAtData.sql = 1_LookAtData.sql
+		1_Push_Streaming.sql = 1_Push_Streaming.sql
+		2.5_MonitorTasks.sql = 2.5_MonitorTasks.sql
+		2_Push_Parallel.sql = 2_Push_Parallel.sql
+		3_Pull.sql = 3_Pull.sql
+		4_Train.sql = 4_Train.sql
+		5_Score.sql = 5_Score.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2B725A7-CEAC-4DF8-8381-AFF394289B99}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
