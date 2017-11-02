@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4AA1
 		3_Pull.sql = 3_Pull.sql
 		4_Train.sql = 4_Train.sql
 		5_Score.sql = 5_Score.sql
+		6_rxExecBy.sql = 6_rxExecBy.sql
 	EndProjectSection
 EndProject
 Global
