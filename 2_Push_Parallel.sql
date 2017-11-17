@@ -22,16 +22,14 @@ FROM     Observations AS OBS WITH (NOLOCK, INDEX = 0)
          [isd-history] AS ISD WITH (NOLOCK)
          ON OBS.USAF = ISD.USAF
             AND OBS.WBAN = ISD.WBAN
-WHERE    ISD.State = ''WA''
-         AND ISD.CTRY = ''US''
+WHERE    ISD.CTRY = ''US''
          AND DATETIMEFROMPARTS(ObsYear, ObsMonth, ObsDay, ObsHour, 0, 0, 0) BETWEEN ''2007-01-01'' AND ''2017-10-29''
          AND AirTemp > -500  -- outliers
-ORDER BY DATETIMEFROMPARTS(ObsYear, ObsMonth, ObsDay, ObsHour, 0, 0, 0)
-OPTION (QUERYTRACEON 9358)	-- see https://support.microsoft.com/en-us/help/3171555/adds-trace-flag-9358-to-disable-batch-mode-sort-operations-in-a-comple
+
 '
 , @parallel = 1
 , @params = N'@stream INT, @r_rowsPerRead INT'
-, @r_rowsPerRead = 10000
+, @r_rowsPerRead = 100000
 , @stream = 0
 WITH RESULT SETS (
 (RProcessId INT, StreamId INT, NumRows BIGINT)

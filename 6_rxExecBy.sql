@@ -1,3 +1,6 @@
+USE ISDLite
+GO
+
 -- "Pleasingly parallel" R execution demo
 -- See https://blogs.msdn.microsoft.com/mlserver/2017/04/12/pleasingly-parallel-using-rxexecby/ has further details
 truncate table TrainedModel
@@ -25,12 +28,14 @@ AND DATETIMEFROMPARTS(ObsYear, ObsMonth, ObsDay, ObsHour, 0, 0, 0) BETWEEN ''200
 AND AirTemp > -500  -- outliers
 "
 
+connStr <- "Driver=ODBC Driver 13 for SQL Server;Server=.;Database=ISDLite;trusted_connection=YES"
+
 trainingData <- RxSqlServerData(sqlQuery = sqlQuery
-                                         , connectionString = "Server=.;Database=ISDLite;trusted_connection=YES"
+                                         , connectionString = connStr
                                          , stringsAsFactors=FALSE
                                          , rowBuffering = TRUE)
 
-trainNNet <- function(keys, data)
+trainNNet <- function(keys, data, params)
 {
   temperatureFormula <- AirTemp ~ ObsMonth + ObsHour + DayOfYear
   
@@ -49,9 +54,9 @@ trainNNet <- function(keys, data)
                         output Out [1] linear from H4 all;  
                         ")
       
-      sqlDS <- RxSqlServerData(table = "TrainedModel", connectionString = "Server=.;Database=ISDLite;trusted_connection=YES")
+      sqlDS <- RxSqlServerData(table = "TrainedModel", connectionString = params)
       
-      rxWriteObject (sqlDS, keys, result, serialize = TRUE, overwrite = FALSE, compress = "gzip")
+      rxWriteObject (sqlDS, paste0(keys), result, serialize = TRUE, overwrite = FALSE, compress = "gzip")
     },
     error=function(cond)
     {
@@ -60,7 +65,7 @@ trainNNet <- function(keys, data)
   )
 }
 
-system.time(results <- rxExecBy(inData = trainingData, keys = c("StationKey"), func = trainNNet))
+system.time(results <- rxExecBy(inData = rxImport(trainingData), keys = c("StationKey"), func = trainNNet, funcParams = connStr))
 '
 GO
 
