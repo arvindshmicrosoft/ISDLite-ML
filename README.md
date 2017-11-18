@@ -1,5 +1,5 @@
 # ISDLite-ML
-Some Machine Learning demos using SQL Server R Services and the ISDLite dataset
+Some Machine Learning demos using SQL Server R Services and the ISDLite dataset. To run this you must use SQL Server 2017 with at least Cumulative Update 1 applied.
 
 View these sessions for more information on SQL Server ML Services
 * [Performance patterns for machine learning services in SQL Server](https://myignite.microsoft.com/videos/53396)
